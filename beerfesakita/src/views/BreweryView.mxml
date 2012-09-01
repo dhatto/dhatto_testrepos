@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:controller="views.*"
+		actionBarVisible="true" creationComplete="ctlr.creationCompleteHandler(event)"
+		currentState="portrait" tabBarVisible="true" title="ブルワリー">
+
+	<s:states>
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
+	</s:states>
+
+	<fx:Declarations>
+		<!-- 非ビジュアルエレメント (サービス、値オブジェクトなど) をここに配置 -->
+		<controller:BreweryViewController id="ctlr"/>
+	</fx:Declarations>
+
+	<fx:Style>
+		.rendererLabel {
+			fontSize: 15;
+			color: #0000FF;
+		}
+	</fx:Style>
+
+	<fx:Script>
+		<![CDATA[
+			
+			protected function breweryList_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				trace(breweryList.selectedIndex);
+				// TODO 画面遷移
+				//Alert.show("My Var: " + event.currentTarget.selectedItem.myVar);
+			}
+		]]>
+	</fx:Script>
+
+	<s:List id="breweryList" width="100%" height="100%" click="breweryList_clickHandler(event)">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:IconItemRenderer
+					messageStyleName = "rendererLabel"
+					fontSize = "25"
+					labelField = "breweryName"
+					messageField = "placeName"
+					decorator = "@Embed(source='/resources/cursor.png')"
+					iconFunction ="{iconImageSource}">
+				<fx:Script>
+					<![CDATA[
+						[Embed(source="/resources/beer.png")]
+						public var beerImage:Class;
+
+						// iconFunction
+						public function iconImageSource(item:Object):Class{
+							return beerImage;
+						}
+					]]>
+				</fx:Script>
+				</s:IconItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+</s:View>
+
+
